@@ -1,12 +1,18 @@
 import { merge } from '@corex/deepmerge';
 import { loadFile } from './file';
-import { IConfig } from "./interface";
+import { IConfig } from './interface';
 
 const defaultConfig: Partial<IConfig> = {
     sourceDir: '.next',
     outDir: 'public',
     postsDir: 'posts',
-    exclude: []
+    exclude: [],
+    createFeedItem: (pageProps, config) => ({
+        title: pageProps.postData.title,
+        id: `${config.siteUrl}/${config.postsDir}/${pageProps.postData.id}`,
+        link: `${config.siteUrl}/${config.postsDir}/${pageProps.postData.id}`,
+        date: new Date(pageProps.postData.date)
+    })
 };
 
 const updateConfig = (
@@ -14,7 +20,7 @@ const updateConfig = (
     newConfig: Partial<IConfig>
 ): IConfig => {
     return merge([currConfig, newConfig], {
-      arrayMergeType: 'overwrite',
+        arrayMergeType: 'overwrite'
     }) as IConfig;
 };
 

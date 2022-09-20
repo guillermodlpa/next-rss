@@ -14,12 +14,11 @@ export const createFeedSet = (
         copyright: config.siteCopyright
     });
     manifest.posts?.forEach((post) => {
-        feed.addItem({
-            title: post.pageProps.postData.title,
-            id: `${config.siteUrl}/${config.postsDir}/${post.pageProps.postData.id}`,
-            link: `${config.siteUrl}/${config.postsDir}/${post.pageProps.postData.id}`,
-            date: new Date(post.pageProps.postData.date)
-        });
+        if (!post.pageProps) {
+            return;
+        }
+        const feedItem = config.createFeedItem(post.pageProps, config);
+        feed.addItem(feedItem);
     });
     feed.items.sort((a, b) => {
         return b.date.getTime() - a.date.getTime();

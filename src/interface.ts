@@ -1,53 +1,59 @@
+import { Item } from 'feed/lib/typings';
+
 export interface IConfig {
-    siteTitle: string
-    siteDescription: string
-    siteLanguage: string
-    siteCopyright: string
-    siteUrl: string
-    sourceDir?: string
-    outDir?: string
-    exclude?: string[]
-    postsDir?: string
+    siteTitle: string;
+    siteDescription: string;
+    siteLanguage: string;
+    siteCopyright: string;
+    siteUrl: string;
+    sourceDir?: string;
+    outDir?: string;
+    exclude?: string[];
+    postsDir?: string;
+    createFeedItem: (
+        pageProps: { [key: string]: any },
+        config: IConfig
+    ) => Item;
 }
 
 export interface IRuntimePaths {
-    BUILD_MANIFEST: string
-    PRERENDER_MANIFEST: string
-    EXPORT_MARKER: string
-    POST_DIR: string
-    RSS_FILE: string
-    ATOM_FILE: string
+    BUILD_MANIFEST: string;
+    PRERENDER_MANIFEST: string;
+    EXPORT_MARKER: string;
+    POST_DIR: string;
+    RSS_FILE: string;
+    ATOM_FILE: string;
 }
 
 export interface IExportMarker {
-    exportTrailingSlash: boolean
+    exportTrailingSlash: boolean;
 }
 
 export interface IBuildManifest {
     pages: {
-        [key: string]: string[]
-    }
+        [key: string]: string[];
+    };
 }
-  
+
 export interface IPreRenderManifest {
     routes: {
-        [key: string]: any
-    }
+        [key: string]: any;
+    };
 }
 
 export interface IPostsType {
-    pageProps:{
-        postData:{
-            id: string
-            title: string
-            contentHtml: string
-            date: string
-        }
-    }
+    pageProps: {
+        postData: {
+            id: string;
+            title: string;
+            contentHtml: string;
+            date: string;
+        };
+    };
 }
 
 export interface INextManifest {
-    build: IBuildManifest
-    preRender?: IPreRenderManifest
-    posts?: IPostsType[]
+    build: IBuildManifest;
+    preRender?: IPreRenderManifest;
+    posts?: IPostsType[];
 }
